@@ -1,0 +1,45 @@
+<html>
+    <head>
+
+    </head>
+    <body>
+        <div id = "encabezado">
+
+        </id>
+    </body>
+    <script>
+        let x = document.createTextNode("Hola");
+        document.getElementById("encabezado").appendChild(x);
+
+        encabezado.addEventListener("click",function(){
+            let y = document.createElement("p");
+            y.textContent = "Adios";
+            document.getElementById("encabezado").appendChild(y);
+        })
+
+        document.getElementById("encabezado").setAttribute("style","color:red");
+
+        async function veAlMuseo(){
+            let respuesta = await fetch("https://collectionapi.metmuseum.org/public/collection/v1/objects/1921");
+            console.log(respuesta);
+
+            let respuestaJson = await respuesta.json();
+            console.log(respuestaJson);
+
+            console.log(respuestaJson.title);
+            x = document.createElement("h1");
+            x.textContent = respuestaJson.title;
+            document.body.appendChild(x);
+
+            y = document.createElement("img");
+            y.src = respuestaJson.primaryImage;
+
+            y.setAttribute("width","50%");
+            y.setAttribute("height","50%");
+            document.body.appendChild(y);
+        }
+        veAlMuseo();
+
+
+    </script>
+</html>
