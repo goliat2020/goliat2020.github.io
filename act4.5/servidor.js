@@ -89,7 +89,7 @@ function mostrarOpinion(req, res) {
 // Función para manejar rutas no encontradas
 function manejarRuta404(req, res) {
     res.writeHead(404, { 'Content-Type': 'text/plain' });
-    res.end('Oh no, te perdiste en el ciberespacio! 🚀');
+    res.end('Oh no, te perdiste en el ciberespacio!');
 }
 
 // Creación del servidor
