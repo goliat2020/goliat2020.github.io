@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donantes</title>
+</head>
+<body>
+    <h1>Lista de Donantes</h1>
+
+    <ul id="lista-donantes"></ul>
+
+    <a href="/">Bienvenida</a> | <a href="/escuelas">Escuelas</a> | <a href="/equipo">Equipo</a> | <a href="/opinion">Opinion</a>
+
+    <script>
+        async function obtenerDonantes() {
+            try {
+                const respuesta = await fetch("/api/donantes");
+                const donantes = await respuesta.json();
+
+                const lista = document.getElementById("lista-donantes");
+                lista.innerHTML = ""; // Limpia la lista antes de agregar elementos
+
+                // Verifica si hay varios donantes o solo uno
+                if (Array.isArray(donantes)) {
+                    donantes.forEach(donante => {
+                        const item = document.createElement("li");
+                        item.textContent = `${donante.nombre} - ${donante.cantidad}`;
+                        lista.appendChild(item);
+                    });
+                } else {
+                    const item = document.createElement("li");
+                    item.textContent = `${donantes.nombre} - ${donantes.cantidad}`;
+                    lista.appendChild(item);
+                }
+
+            } catch (error) {
+                console.error("Error obteniendo los donantes:", error);
+            }
+        }
+        obtenerDonantes();
+    </script>
+</body>
+</html>

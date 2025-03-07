@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Escuelas</title>
+</head>
+<body>
+    <h1>Lista de Escuelas</h1>
+
+    <ul id="lista-escuelas"></ul>
+
+    <a href="/">Bienvenida</a> | <a href="/donantes">Donantes</a> | <a href="/equipo">Equipo</a> | <a href="/opinion">Opinión</a>
+
+    <script>
+        async function obtenerEscuelas() {
+            try {
+                const respuesta = await fetch("/api/escuelas");
+                const escuelas = await respuesta.json();
+
+                const lista = document.getElementById("lista-escuelas");
+                lista.innerHTML = ""; // Limpia la lista antes de agregar elementos
+
+                // Verifica si hay varias escuelas o solo una
+                if (Array.isArray(escuelas)) {
+                    escuelas.forEach(escuela => {
+                        const item = document.createElement("li");
+                        item.textContent = `${escuela.nombre} - ${escuela.direccion}`;
+                        lista.appendChild(item);
+                    });
+                } else {
+                    const item = document.createElement("li");
+                    item.textContent = `${escuelas.nombre} - ${escuelas.direccion}`;
+                    lista.appendChild(item);
+                }
+
+            } catch (error) {
+                console.error("Error obteniendo las escuelas:", error);
+            }
+        }
+        obtenerEscuelas();
+    </script>
+</body>
+</html>
